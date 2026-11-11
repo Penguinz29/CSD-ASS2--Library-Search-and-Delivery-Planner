@@ -2,7 +2,6 @@ package model;
 
 import java.util.Objects;
 
-/** Immutable catalogue record. */
 public final class Book {
     private final String bookId;
     private final String title;
@@ -15,7 +14,7 @@ public final class Book {
         this.category = Objects.requireNonNull(category, "category");
         this.copies = copies;
     }
-
+    
     public String getBookId() { return bookId; }
     public String getTitle() { return title; }
     public String getCategory() { return category; }

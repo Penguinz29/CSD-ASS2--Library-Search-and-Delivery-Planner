@@ -12,9 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * LibraryController – bridges Model and View.
- * Reads user choices from ConsoleView, invokes model operations,
- * and passes results back to ConsoleView for display.
+ * Thao khao AI
+ * this class is used to control the flow of the program
  */
 public final class LibraryController {
     private final ConsoleView view;
@@ -27,7 +26,7 @@ public final class LibraryController {
         this.graph = state.getGraph();
     }
 
-    /** Main event loop. */
+    // main loop
     public void run() {
         while (true) {
             view.printMenu();
@@ -36,72 +35,73 @@ public final class LibraryController {
                 if (Constants.MENU_EXIT.equals(choice)) {
                     return;
                 }
-                handleChoice(choice);
+                switch (choice) {
+                    case Constants.MENU_LIST_BOOKS:
+                        handleListBooks();
+                        break;
+                    case Constants.MENU_SEARCH_BOOK:
+                        handleSearchBook();
+                        break;
+                    case Constants.MENU_DELETE_BOOK:
+                        handleDeleteBook();
+                        break;
+                    case Constants.MENU_BST_STATS:
+                        handleBstStats();
+                        break;
+                    case Constants.MENU_SHOW_GRAPH:
+                        handleShowGraph();
+                        break;
+                    case Constants.MENU_BFS:
+                        handleBfs();
+                        break;
+                    case Constants.MENU_SHORTEST_ROUTE:
+                        handleShortestRoute();
+                        break;
+                    case Constants.MENU_MST:
+                        handleMst();
+                        break;
+                    case Constants.MENU_SORT_BOOKS:
+                        handleSort();
+                        break;
+                    default:
+                        view.showUnknownChoice();
+                        break;
+                }
             } catch (IllegalArgumentException ex) {
                 view.showError(ex.getMessage());
             }
         }
     }
 
-    // ── Choice dispatcher ─────────────────────────────────────────────────────
-
-    private void handleChoice(String choice) {
-        switch (choice) {
-            case Constants.MENU_LIST_BOOKS:
-                handleListBooks();
-                break;
-            case Constants.MENU_SEARCH_BOOK:
-                handleSearchBook();
-                break;
-            case Constants.MENU_DELETE_BOOK:
-                handleDeleteBook();
-                break;
-            case Constants.MENU_BST_STATS:
-                handleBstStats();
-                break;
-            case Constants.MENU_SHOW_GRAPH:
-                handleShowGraph();
-                break;
-            case Constants.MENU_BFS:
-                handleBfs();
-                break;
-            case Constants.MENU_SHORTEST_ROUTE:
-                handleShortestRoute();
-                break;
-            case Constants.MENU_MST:
-                handleMst();
-                break;
-            case Constants.MENU_SORT_BOOKS:
-                handleSort();
-                break;
-            default:
-                view.showUnknownChoice();
-                break;
-        }
-    }
-
-    // ── Handlers ──────────────────────────────────────────────────────────────
-
+    // this method handles the user's choice to list all books in the binary search
+    // tree
     private void handleListBooks() {
         view.showBooks(tree.inorder());
     }
 
+    // this method handles the user's choice to search for a book by its ID in the
+    // binary search tree
     private void handleSearchBook() {
         String bookId = view.promptBookId();
         Book found = tree.search(bookId);
         view.showBookFound(found);
     }
 
+    // this method handles the user's choice to delete a book by its ID in the
+    // binary search tree
     private void handleDeleteBook() {
         String bookId = view.promptBookId();
         boolean deleted = tree.delete(bookId);
         view.showDeleteResult(deleted);
     }
 
+    // this method handles the user's choice to show the statistics of the binary
+    // search tree
     private void handleBstStats() {
         view.showBstStats(tree.size(), tree.height());
     }
 
+    // this method
     private void handleShowGraph() {
         view.showGraph(graph.getAdjacency());
     }
@@ -112,6 +112,7 @@ public final class LibraryController {
         view.showBfsResult(order);
     }
 
+    // this 
     private void handleShortestRoute() {
         String from = view.promptBranchId("from");
         String to = view.promptBranchId("to");
@@ -132,8 +133,6 @@ public final class LibraryController {
         Sorts.sort(copy, algorithm, metrics);
         view.showSortResult(Arrays.asList(copy), metrics.getComparatorCalls(), metrics.getArrayWrites());
     }
-
-    // ── Helpers ───────────────────────────────────────────────────────────────
 
     private static Sorts.Algorithm parseAlgorithm(String value) {
         if (Constants.SORT_CHOICE_QUICK.equals(value)

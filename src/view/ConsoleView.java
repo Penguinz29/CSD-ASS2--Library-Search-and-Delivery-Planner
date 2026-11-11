@@ -9,8 +9,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * ConsoleView – responsible only for displaying output and reading raw user input.
- * No business logic lives here; it delegates all data decisions to LibraryController.
+ * this class is used for printing the output and reading the input from the
+ * user
  */
 public final class ConsoleView {
     private final Scanner scanner;
@@ -19,10 +19,8 @@ public final class ConsoleView {
         this.scanner = new Scanner(System.in);
     }
 
-    // ── Banner & Menu ─────────────────────────────────────────────────────────
-
     public void printBanner(int bookCount, int branchCount) {
-        System.out.println("=== Library Search & Delivery Planner ===");
+        System.out.println("\tLibrary Search & Delivery Planner");
         System.out.println("Loaded " + bookCount + " books and " + branchCount + " branches.");
     }
 
@@ -37,8 +35,6 @@ public final class ConsoleView {
         System.out.println(Constants.MENU_LINE);
         System.out.print("Choice: ");
     }
-
-    // ── Prompts ───────────────────────────────────────────────────────────────
 
     public String readLine() {
         return scanner.nextLine().trim();
@@ -57,12 +53,10 @@ public final class ConsoleView {
     public String promptAlgorithm() {
         System.out.println();
         System.out.println("Select sorting algorithm:");
-        System.out.println("| 1. Quick Sort | 2. Merge Sort | 3. Heap Sort | 4. Insertion Sort |");
+        System.out.println("1. Quick Sort \n2. Merge Sort \n3. Heap Sort \n4. Insertion Sort ");
         System.out.print("Choice (1-4): ");
         return readLine();
     }
-
-    // ── Book output ───────────────────────────────────────────────────────────
 
     public void showBooks(List<Book> books) {
         printBookHeader();
@@ -184,7 +178,6 @@ public final class ConsoleView {
         System.out.println("Unknown choice. Please enter 0-9.");
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
 
     private void printBookHeader() {
         System.out.println();
@@ -200,7 +193,7 @@ public final class ConsoleView {
     private void printBookRow(Book book) {
         System.out.printf("| %-" + Constants.COL_WIDTH_ID + "s | %-"
                 + Constants.COL_WIDTH_TITLE + "s | %-"
-                + Constants.COL_WIDTH_CATEGORY + "s | %"
+                + Constants.COL_WIDTH_CATEGORY + "s | %-"
                 + Constants.COL_WIDTH_COPIES + "d |%n",
                 truncate(book.getBookId(), Constants.COL_WIDTH_ID),
                 truncate(book.getTitle(), Constants.COL_WIDTH_TITLE),

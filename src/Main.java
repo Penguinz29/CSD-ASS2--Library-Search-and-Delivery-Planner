@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 /**
- * Application entry point.
- * Loads data (Model), creates the View and Controller, then starts the event loop.
+ * this class is used to run the library management system
  */
 public final class Main {
     private Main() { }
