@@ -1,3 +1,14 @@
-AI assistance used: ChatGPT helped draft the Java implementation, test plan, sorting comparison runner, and report.
-Checked suggestion: the supplied four-vertex graph should produce shortest path A -> C -> B -> D with distance 4 and an MST cost of 4. TestRunner checks the route, cost, and disconnected-vertex behavior; all sort outputs are checked for order and record preservation.
-The group should review every implementation and adapt the contribution evidence to match the work each member actually performed before submission.
+AI Usage Disclosure:
+
+1. BST & Graph Test Cases:
+- Consulted AI to design edge-case test scenarios for BST node deletion, specifically verifying leaf nodes, single-child nodes, and nodes with deep in-order successors in the right subtree.
+- Consulted AI to construct the standard 5-vertex sample graph with competing route weights for Dijkstra (verifying route A -> C -> B -> D over direct edges) and disconnected components for Prim's MST.
+
+2. Graph Algorithms (Dijkstra & Prim Optimization):
+- Consulted AI to implement and optimize shortestRoute (Dijkstra) and minimumSpanningTree (Prim) in BranchGraph, specifically for deterministic lexicographical tie-breaking logic and robust handling of disconnected graphs (returning 'NO ROUTE' and 'NO SPANNING TREE').
+
+3. Benchmark Runner (CompareRunner):
+- Consulted AI for the design and structure of CompareRunner to systematically generate the 48 empirical sorting scenarios with deterministic PRNG seeds, independent array cloning, and metrics tracking.
+
+4. Syntax, Troubleshooting & Code Optimization:
+- Used AI for syntax suggestions, troubleshooting compilation and runtime errors, and optimizing code structure according to clean MVC design principles.

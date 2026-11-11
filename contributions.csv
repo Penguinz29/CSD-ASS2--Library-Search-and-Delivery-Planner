@@ -1,4 +1,20 @@
-Member,Task,Evidence reference,Review by
-Bùi Đoàn Duy Anh,Proposed: implement and test BST plus transactional CSV loading,src/BookTree.java; src/LibraryData.java; related TestRunner checks,Hoàng Văn Kiên
-Hoàng Văn Kiên,Proposed: implement and test adjacency list BFS Dijkstra and Prim,src/BranchGraph.java; related TestRunner checks,Ngô Thương Huyền
-Ngô Thương Huyền,Proposed: implement and test four sorters and reproducible comparisons,src/Sorts.java; src/CompareRunner.java; sorting.csv; related TestRunner checks,Bùi Đoàn Duy Anh
+Member,task,evidence reference,review by
+Bùi Đoàn Duy Anh,Thiết kế và cài đặt BookTree - BST khóa theo bookId từ điển; insert; search/delete; inorder/size/height,BookTree.java - insert(); search(); inorder(); size(); height(),Hoàng Văn Kiên
+Bùi Đoàn Duy Anh,Cài đặt delete() xử lý đúng 3 trường hợp lá/một con/hai con,BookTree.java - delete(); minimum(); deleteMin(); TestRunner.java - BST delete one right child(); BST delete node with deep successor(); BST delete root with two children(),Hoàng Văn Kiên
+Bùi Đoàn Duy Anh,Xây dựng BookTree + Book.java, Book.java - getBookId(); getCopies(); equals(); hashCode();  LibraryData.java - State,Hoàng Văn Kiên
+Bùi Đoàn Duy Anh,Cài đặt loadAndReplace()/load() nạp books/branches/routes: validate toàn bộ trước khi thay current; dữ liệu sai giữ nguyên trạng thái cũ kèm file:line,LibraryData.java - loadAndReplace(); load(); readRows(); parseCsv(); requireColumns(); parseInteger(),Hoàng Văn Kiên
+Bùi Đoàn Duy Anh,Viết LibraryController - vòng lặp menu 0-9 và 9 handler chuyển nghiệp vụ sang model,LibraryController.java - run(); handleListBooks(); handleSearchBook(); handleDeleteBook(),Hoàng Văn Kiên
+Bùi Đoàn Duy Anh,Viết ConsoleView và ghép Main; hiển thị bảng sách; kết quả tìm/xóa/BST; đồ thị/BFS/route/MST; sort kèm bộ đếm,ConsoleView.java - printMenu(); showBooks(); showSortResult(); showGraph(); showRouteResult(); showMstResult(); Main.java - main(),Hoàng Văn Kiên
+Hoàng Văn Kiên,cài đặt comparator dùng chung: copies tăng dần; bằng thì bookId tăng dần; mọi so sánh đi qua compare() có đếm; Metrics reset ở đầu sort,Sorts.java - compareBooks(); compare(); Metrics; sort(),Ngô Thương Huyền
+Hoàng Văn Kiên,Cài đặt Quick Sort pivot cuối; worst case O(n^2) trên mảng đã sắp/ngược; swap tính 2 lần ghi,Sorts.java - quickSort(); partition(); swap(),Ngô Thương Huyền
+Hoàng Văn Kiên,Cài đặt Merge Sort top-down ổn định với một mảng tạm; ưu tiên trái khi bằng; đếm cả ghi mảng tạm lẫn copy-back,Sorts.java - mergeSort(); mergeSort(Book[]; Book[]; int; int; Metrics); write(),Ngô Thương Huyền
+Hoàng Văn Kiên,Cài đặt Heap Sort max-heap tại chỗ và Insertion Sort ổn định/thích nghi,Sorts.java - heapSort(); siftDown(); insertionSort(),Ngô Thương Huyền
+Hoàng Văn Kiên,Viết hàm kiểm tra sort không dùng Arrays.sort: isSorted(); preservesRecords() multiset; isSortedAndPreserves(),Sorts.java - isSorted(); preservesRecords(); isSortedAndPreserves(); TestRunner.java - QUICK identical elements and preserves records(); INSERTION empty and preserves records(),Ngô Thương Huyền
+Hoàng Văn Kiên,Viết CompareRunner - sinh 48 ca 4 thuật toán x 3 cỡ (100/500/1000) x 4 kiểu (ngẫu nhiên có seed/đã sắp/ngược/nhiều copies bằng),CompareRunner.java - main(); makeInput(); book(); results/sorting.csv,Ngô Thương Huyền
+Ngô Thương Huyền,Thiết kế và cài đặt BranchGraph,BranchGraph.java - validateBranchIds(); validateEdges(); pairKey(); Edge; Neighbor,Bùi Đoàn Duy Anh
+Ngô Thương Huyền,Cài đặt truy vấn đồ thị: getAdjacency(); neighbours(); describeNeighbours(); vertexCount(); edgeCount(); isConnected(),BranchGraph.java - getAdjacency(); neighbours(); describeNeighbours(); vertexCount(); edgeCount(); isConnected(); TestRunner.java - Graph rejects self-loops(); Connected graph vertex/edge count and status(),Bùi Đoàn Duy Anh
+Ngô Thương Huyền,Cài đặt BFS đánh dấu khi enqueue; mỗi đỉnh đến được xuất hiện một lần,BranchGraph.java - breadthFirstSearch(); TestRunner.java - BFS reachable component without repeats(),Bùi Đoàn Duy Anh
+Ngô Thương Huyền,Cài đặt Dijkstra với PriorityQueue,BranchGraph.java - shortestRoute(); RouteResult; TestRunner.java - Dijkstra competing routes(); Dijkstra unreachable destination(),Bùi Đoàn Duy Anh
+Ngô Thương Huyền,Cài đặt Prim MST; so cạnh theo distance rồi cặp đỉnh chuẩn hóa,BranchGraph.java - minimumSpanningTree(); canonicalEdge(); MstResult; TestRunner.java - Prim disconnected graph(),Bùi Đoàn Duy Anh
+Ngô Thương Huyền,Cài đặt TestRunner với bộ 48 check ,TestRunner.java - main(); testTree(); testGraph(); testSorters(); testInvalidLoadPreservesState(); results/test-output.txt (48 checks),Bùi Đoàn Duy Anh
+All members,Viết report và README,report.docx - Design and validation; A. Binary search tree; B. Branch graph; C. Sorting implementations; D. Algorithm comparison; E. Findings; README.txt - Build and Run,All members

@@ -21,17 +21,9 @@ public final class BranchGraph {
             this.distance = distance;
         }
 
-        public String getFrom() {
-            return from;
-        }
-
-        public String getTo() {
-            return to;
-        }
-
-        public int getDistance() {
-            return distance;
-        }
+        public String getFrom() { return from; }
+        public String getTo() { return to; }
+        public int getDistance() { return distance; }
     }
 
     /** Represents a neighboring branch in the graph. */
@@ -44,13 +36,8 @@ public final class BranchGraph {
             this.distance = distance;
         }
 
-        public String getBranchId() {
-            return branchId;
-        }
-
-        public int getDistance() {
-            return distance;
-        }
+        public String getBranchId() { return branchId; }
+        public int getDistance() { return distance; }
     }
 
     /** Represents the result of a route calculation. */
@@ -63,17 +50,9 @@ public final class BranchGraph {
             this.distance = distance;
         }
 
-        public boolean isReachable() {
-            return !path.isEmpty();
-        }
-
-        public List<String> getPath() {
-            return path;
-        }
-
-        public long getDistance() {
-            return distance;
-        }
+        public boolean isReachable() { return !path.isEmpty(); }
+        public List<String> getPath() { return path; }
+        public long getDistance() { return distance; }
     }
 
     /** Represents the result of a minimum spanning tree search. */
@@ -88,17 +67,9 @@ public final class BranchGraph {
             this.totalDistance = totalDistance;
         }
 
-        public boolean hasSpanningTree() {
-            return spanning;
-        }
-
-        public List<Edge> getEdges() {
-            return edges;
-        }
-
-        public long getTotalDistance() {
-            return totalDistance;
-        }
+        public boolean hasSpanningTree() { return spanning; }
+        public List<Edge> getEdges() { return edges; }
+        public long getTotalDistance() { return totalDistance; }
     }
 
     private final List<String> branchIds;
@@ -109,7 +80,7 @@ public final class BranchGraph {
      * Constructs a new branch graph with the given branch IDs and edges.
      *
      * @param branchIds the list of branch IDs
-     * @param edges     the list of edges
+     * @param edges the list of edges
      */
     public BranchGraph(List<String> branchIds, List<Edge> edges) {
         validateBranchIds(branchIds);
@@ -118,8 +89,7 @@ public final class BranchGraph {
         this.branchIds = Collections.unmodifiableList(new ArrayList<String>(branchIds));
         this.edges = Collections.unmodifiableList(new ArrayList<Edge>(edges));
         this.adjacency = new LinkedHashMap<String, List<Neighbor>>();
-        for (String id : branchIds)
-            adjacency.put(id, new ArrayList<Neighbor>());
+        for (String id : branchIds) adjacency.put(id, new ArrayList<Neighbor>());
         for (Edge edge : edges) {
             adjacency.get(edge.from).add(new Neighbor(edge.to, edge.distance));
             adjacency.get(edge.to).add(new Neighbor(edge.from, edge.distance));
@@ -128,7 +98,6 @@ public final class BranchGraph {
 
     /**
      * Validates the list of branch IDs.
-     * 
      * @param branchIds the list of branch IDs to validate
      */
     private static void validateBranchIds(List<String> branchIds) {
@@ -149,9 +118,8 @@ public final class BranchGraph {
 
     /**
      * Validates the list of edges.
-     * 
      * @param branchIds the list of branch IDs
-     * @param edges     the list of edges to validate
+     * @param edges the list of edges to validate
      */
     private static void validateEdges(List<String> branchIds, List<Edge> edges) {
         if (edges == null) {
@@ -182,7 +150,6 @@ public final class BranchGraph {
 
     /**
      * Returns a unique key for a pair of branch IDs.
-     * 
      * @param a the first branch ID
      * @param b the second branch ID
      * @return the unique key
@@ -191,18 +158,14 @@ public final class BranchGraph {
         if (a.compareTo(b) <= 0) {
             return a + "\u0000" + b;
         }
-        return b + "\u0000" + a;
+        return b + "\u0000" + a; //"\u0000"là
     }
 
     /** Returns the list of branch IDs in the graph. */
-    public List<String> getBranchIds() {
-        return branchIds;
-    }
+    public List<String> getBranchIds() { return branchIds; }
 
     /** Returns the list of edges in the graph. */
-    public List<Edge> getEdges() {
-        return edges;
-    }
+    public List<Edge> getEdges() { return edges; }
 
     /** Returns the adjacency list representation of the graph. */
     public Map<String, List<Neighbor>> getAdjacency() {
@@ -212,20 +175,14 @@ public final class BranchGraph {
         }
         return Collections.unmodifiableMap(copy);
     }
-
+    
     /** Returns the number of vertices in the graph. */
-    public int vertexCount() {
-        return branchIds.size();
-    }
-
+    public int vertexCount() { return branchIds.size(); }
     /** Returns the number of edges in the graph. */
-    public int edgeCount() {
-        return edges.size();
-    }
+    public int edgeCount() { return edges.size(); }
 
     /**
      * Returns the list of neighbors for the given branch ID.
-     * 
      * @param branchId the branch ID
      * @return the list of neighbors
      */
@@ -236,23 +193,19 @@ public final class BranchGraph {
 
     /**
      * Returns a string describing the neighbors of each branch in the graph.
-     * 
      * @return the string describing the neighbors
      */
     public String describeNeighbours() {
         StringBuilder sb = new StringBuilder();
         boolean firstLine = true;
         for (Map.Entry<String, List<Neighbor>> entry : adjacency.entrySet()) {
-            if (!firstLine)
-                sb.append('\n');
+            if (!firstLine) sb.append('\n');
             firstLine = false;
             sb.append(entry.getKey()).append(": ");
             List<Neighbor> list = entry.getValue();
-            if (list.isEmpty())
-                sb.append("(no neighbours)");
+            if (list.isEmpty()) sb.append("(no neighbours)");
             for (int i = 0; i < list.size(); i++) {
-                if (i > 0)
-                    sb.append(", ");
+                if (i > 0) sb.append(", ");
                 sb.append(list.get(i).branchId).append('(').append(list.get(i).distance).append(')');
             }
         }
@@ -261,18 +214,15 @@ public final class BranchGraph {
 
     /**
      * Returns true if the graph is connected, false otherwise.
-     * 
      * @return true if the graph is connected, false otherwise
      */
     public boolean isConnected() {
-        if (branchIds.isEmpty())
-            return false;
+        if (branchIds.isEmpty()) return false;
         return breadthFirstSearch(branchIds.get(0)).size() == branchIds.size();
     }
 
     /**
      * Performs a breadth-first search starting from the given source branch.
-     * 
      * @param source the source branch ID
      * @return the list of branches visited in order
      */
@@ -298,8 +248,7 @@ public final class BranchGraph {
 
     /**
      * Returns the shortest route from the source branch to the destination branch.
-     * 
-     * @param source      the source branch ID
+     * @param source the source branch ID
      * @param destination the destination branch ID
      * @return the route result
      */
@@ -309,10 +258,9 @@ public final class BranchGraph {
 
     /**
      * Returns the shortest route from the source branch to the destination branch.
-     * 
-     * @param source      the source branch ID
+     * @param source the source branch ID
      * @param destination the destination branch ID
-     * @param trace       the list to store the trace of the algorithm
+     * @param trace the list to store the trace of the algorithm
      * @return the route result
      */
     public RouteResult shortestRoute(String source, String destination, List<String> trace) {
@@ -321,8 +269,7 @@ public final class BranchGraph {
         Map<String, Long> distances = new LinkedHashMap<String, Long>();
         Map<String, String> previous = new LinkedHashMap<String, String>();
         Map<String, Boolean> settled = new LinkedHashMap<String, Boolean>();
-        for (String id : branchIds)
-            distances.put(id, Long.MAX_VALUE);
+        for (String id : branchIds) distances.put(id, Long.MAX_VALUE);
         distances.put(source, 0L);
         note(trace, "init: dist[" + source + "] = 0, every other vertex = INF");
 
@@ -386,8 +333,7 @@ public final class BranchGraph {
         String current = destination;
         while (current != null) {
             path.add(current);
-            if (current.equals(source))
-                break;
+            if (current.equals(source)) break;
             current = previous.get(current);
         }
         if (path.isEmpty() || !path.get(path.size() - 1).equals(source)) {
@@ -400,7 +346,6 @@ public final class BranchGraph {
 
     /**
      * Returns the minimum spanning tree of the graph.
-     * 
      * @return the minimum spanning tree result
      */
     public MstResult minimumSpanningTree() {
@@ -409,19 +354,16 @@ public final class BranchGraph {
 
     /**
      * Returns the minimum spanning tree of the graph.
-     * 
      * @param trace the list to store the trace of the algorithm
      * @return the minimum spanning tree result
      */
     public MstResult minimumSpanningTree(List<String> trace) {
-        if (branchIds.isEmpty())
-            return new MstResult(false, new ArrayList<Edge>(), 0L);
+        if (branchIds.isEmpty()) return new MstResult(false, new ArrayList<Edge>(), 0L);
         String start = branchIds.get(0);
         Map<String, Long> keys = new LinkedHashMap<String, Long>();
         Map<String, String> parent = new LinkedHashMap<String, String>();
         Map<String, Boolean> inTree = new LinkedHashMap<String, Boolean>();
-        for (String id : branchIds)
-            keys.put(id, Long.MAX_VALUE);
+        for (String id : branchIds) keys.put(id, Long.MAX_VALUE);
         keys.put(start, 0L);
         note(trace, "init: start at " + start + ", key[" + start + "] = 0, others = INF");
         long runningTotal = 0L;
@@ -483,8 +425,7 @@ public final class BranchGraph {
         long total = 0L;
         for (String id : branchIds) {
             String predecessor = parent.get(id);
-            if (predecessor == null)
-                continue;
+            if (predecessor == null) continue;
             Edge edge = canonicalEdge(predecessor, id, keys.get(id).intValue());
             selected.add(edge);
             total += edge.distance;
@@ -495,59 +436,61 @@ public final class BranchGraph {
 
     /**
      * Returns the canonical edge between two branches.
-     * 
-     * @param a        the first branch ID
-     * @param b        the second branch ID
+     * @param a the first branch ID
+     * @param b the second branch ID
      * @param distance the distance between the branches
      * @return the canonical edge
      */
     private Edge canonicalEdge(String a, String b, int distance) {
-        return a.compareTo(b) <= 0 ? new Edge(a, b, distance) : new Edge(b, a, distance);
+        if(a.compareTo(b) <= 0) {
+            return new Edge(a, b, distance);
+        } else {
+            return new Edge(b, a, distance);
+        }
+        
     }
 
     /**
      * Requires that the given branch exists in the graph.
-     * 
      * @param id the branch ID
      */
     private void requireBranch(String id) {
-        if (!adjacency.containsKey(id))
-            throw new IllegalArgumentException("unknown branchId: " + id);
+        if (!adjacency.containsKey(id)) throw new IllegalArgumentException("unknown branchId: " + id);
     }
 
     /**
      * Adds a note to the trace list.
-     * 
      * @param trace the list to store the trace
-     * @param line  the note to add
+     * @param line the note to add
      */
     private static void note(List<String> trace, String line) {
-        if (trace != null)
-            trace.add(line);
+        if (trace != null) trace.add(line);
     }
 
     /**
      * Returns a string representation of the given long value.
-     * 
      * @param value the long value
      * @return the string representation
      */
     private static String show(long value) {
-        return value == Long.MAX_VALUE ? "INF" : Long.toString(value);
+        if (value == Long.MAX_VALUE) {
+            return "INF";
+        } else {
+            return Long.toString(value);
+        }
+        
     }
 
     /**
      * Joins the given parts with the specified separator.
-     * 
      * @param parts the list of strings to join
-     * @param sep   the separator
+     * @param sep the separator
      * @return the joined string
      */
     private static String join(List<String> parts, String sep) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < parts.size(); i++) {
-            if (i > 0)
-                sb.append(sep);
+            if (i > 0) sb.append(sep);
             sb.append(parts.get(i));
         }
         return sb.toString();

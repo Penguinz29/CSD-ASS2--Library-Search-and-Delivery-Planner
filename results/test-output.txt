@@ -1,11 +1,20 @@
 PASS: BST empty state
 PASS: BST empty search/delete
+PASS: BST null search and delete
 PASS: BST singleton
+PASS: BST delete root singleton
 PASS: BST duplicate rejected
 PASS: BST delete leaf
-PASS: BST delete one child
-PASS: BST delete two children
+PASS: BST delete one left child
+PASS: BST delete one right child
+PASS: BST delete two children direct successor
+PASS: BST delete node with deep successor
+PASS: BST delete root with two children
+PASS: BST delete non-existent key
 PASS: BST inorder and degenerate height
+PASS: Graph vertex/edge count and disconnected status
+PASS: Connected graph vertex/edge count and status
+PASS: Graph rejects self-loops
 PASS: BFS reachable component without repeats
 PASS: Dijkstra source equals destination
 PASS: Dijkstra competing routes
@@ -17,20 +26,24 @@ PASS: QUICK singleton and preserves records
 PASS: QUICK equal copies and preserves records
 PASS: QUICK sorted and preserves records
 PASS: QUICK reverse sorted and preserves records
+PASS: QUICK identical elements and preserves records
 PASS: MERGE empty and preserves records
 PASS: MERGE singleton and preserves records
 PASS: MERGE equal copies and preserves records
 PASS: MERGE sorted and preserves records
 PASS: MERGE reverse sorted and preserves records
+PASS: MERGE identical elements and preserves records
 PASS: HEAP empty and preserves records
 PASS: HEAP singleton and preserves records
 PASS: HEAP equal copies and preserves records
 PASS: HEAP sorted and preserves records
 PASS: HEAP reverse sorted and preserves records
+PASS: HEAP identical elements and preserves records
 PASS: INSERTION empty and preserves records
 PASS: INSERTION singleton and preserves records
 PASS: INSERTION equal copies and preserves records
 PASS: INSERTION sorted and preserves records
 PASS: INSERTION reverse sorted and preserves records
+PASS: INSERTION identical elements and preserves records
 PASS: invalid input rejected with line number and old state retained
-ALL TESTS PASSED: 35 checks
+ALL TESTS PASSED: 48 checks

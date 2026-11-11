@@ -1,4 +1,4 @@
-Full name,Student ID,Role
-Bùi Đoàn Duy Anh,HE204113,Suggested: BST and data loading
-Hoàng Văn Kiên,HE204211,Suggested: branch graph and graph tests
-Ngô Thương Huyền,HE204259,Suggested: sorting and comparison
+Full name,Student ID,role,contribution
+Bùi Đoàn Duy Anh,HE204113,Leader,MVC structure (Feature A: Binary search tree + data loading)
+Ngô Thương Huyền,HE204259,Member,Graph & Test  (Feature B: Branch graph + test case) 
+Hoàng Văn Kiên,HE204211,Member,Sorting & Comparison (Feature C: Sorting implementations + D: Algorithm comparison) 
