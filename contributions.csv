@@ -1,0 +1,4 @@
+Member,Task,Evidence reference,Review by
+Bùi Đoàn Duy Anh,Proposed: implement and test BST plus transactional CSV loading,src/BookTree.java; src/LibraryData.java; related TestRunner checks,Hoàng Văn Kiên
+Hoàng Văn Kiên,Proposed: implement and test adjacency list BFS Dijkstra and Prim,src/BranchGraph.java; related TestRunner checks,Ngô Thương Huyền
+Ngô Thương Huyền,Proposed: implement and test four sorters and reproducible comparisons,src/Sorts.java; src/CompareRunner.java; sorting.csv; related TestRunner checks,Bùi Đoàn Duy Anh
