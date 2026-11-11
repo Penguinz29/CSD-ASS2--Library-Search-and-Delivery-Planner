@@ -101,18 +101,20 @@ public final class LibraryController {
         view.showBstStats(tree.size(), tree.height());
     }
 
-    // this method
+    // this method handles the user's choice to show the graph
     private void handleShowGraph() {
         view.showGraph(graph.getAdjacency());
     }
 
+    // this method handles the user's choice to perform a breadth-first search
     private void handleBfs() {
         String start = view.promptBranchId("start");
         List<String> order = graph.breadthFirstSearch(start);
         view.showBfsResult(order);
     }
 
-    // this 
+    // this method handles the user's choice to find the shortest route between two
+    // branches
     private void handleShortestRoute() {
         String from = view.promptBranchId("from");
         String to = view.promptBranchId("to");
@@ -120,11 +122,13 @@ public final class LibraryController {
         view.showRouteResult(result);
     }
 
+    // this method handles the user's choice to find the minimum spanning tree
     private void handleMst() {
         BranchGraph.MstResult result = graph.minimumSpanningTree();
         view.showMstResult(result);
     }
 
+    // this method handles the user's choice to sort the books
     private void handleSort() {
         String algName = view.promptAlgorithm();
         Sorts.Algorithm algorithm = parseAlgorithm(algName);
@@ -134,6 +138,7 @@ public final class LibraryController {
         view.showSortResult(Arrays.asList(copy), metrics.getComparatorCalls(), metrics.getArrayWrites());
     }
 
+    // this support method is used to parse the algorithm choice
     private static Sorts.Algorithm parseAlgorithm(String value) {
         if (Constants.SORT_CHOICE_QUICK.equals(value)
                 || Constants.SORT_NAME_QUICK.equalsIgnoreCase(value)) {
