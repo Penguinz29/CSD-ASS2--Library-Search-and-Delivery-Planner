@@ -15,6 +15,8 @@ Source structure (MVC):
   │   └── ConsoleView.java
   ├── controller/     (Controller – event loop and dispatch)
   │   └── LibraryController.java
+  ├── util/           (Constants)
+  │   └── Constants.java
   ├── Main.java       (Entry point)
   ├── CompareRunner.java
   └── TestRunner.java
@@ -22,6 +24,7 @@ Source structure (MVC):
 Build (run from this directory in Windows PowerShell):
   New-Item -ItemType Directory -Force build
   javac -source 8 -target 8 -encoding UTF-8 -d build `
+    src\util\Constants.java `
     src\model\Book.java src\model\BookTree.java src\model\BranchGraph.java `
     src\model\LibraryData.java src\model\Sorts.java `
     src\view\ConsoleView.java `

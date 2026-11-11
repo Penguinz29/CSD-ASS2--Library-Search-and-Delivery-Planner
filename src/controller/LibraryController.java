@@ -5,6 +5,7 @@ import model.BookTree;
 import model.BranchGraph;
 import model.LibraryData;
 import model.Sorts;
+import util.Constants;
 import view.ConsoleView;
 
 import java.util.Arrays;
@@ -16,15 +17,11 @@ import java.util.List;
  * and passes results back to ConsoleView for display.
  */
 public final class LibraryController {
-    private final LibraryData.State state;
     private final ConsoleView view;
-
-    // Local mutable tree (supports delete during this session)
     private final BookTree tree;
     private final BranchGraph graph;
 
     public LibraryController(LibraryData.State state, ConsoleView view) {
-        this.state = state;
         this.view = view;
         this.tree = state.getBookTree();
         this.graph = state.getGraph();
@@ -36,7 +33,9 @@ public final class LibraryController {
             view.printMenu();
             String choice = view.readLine();
             try {
-                if ("0".equals(choice)) return;
+                if (Constants.MENU_EXIT.equals(choice)) {
+                    return;
+                }
                 handleChoice(choice);
             } catch (IllegalArgumentException ex) {
                 view.showError(ex.getMessage());
@@ -44,29 +43,40 @@ public final class LibraryController {
         }
     }
 
-    // ── Choice dispatcher ──────────────────────────────────────────────────────
+    // ── Choice dispatcher ─────────────────────────────────────────────────────
 
     private void handleChoice(String choice) {
-        if ("1".equals(choice)) {
-            handleListBooks();
-        } else if ("2".equals(choice)) {
-            handleSearchBook();
-        } else if ("3".equals(choice)) {
-            handleDeleteBook();
-        } else if ("4".equals(choice)) {
-            handleBstStats();
-        } else if ("5".equals(choice)) {
-            handleShowGraph();
-        } else if ("6".equals(choice)) {
-            handleBfs();
-        } else if ("7".equals(choice)) {
-            handleShortestRoute();
-        } else if ("8".equals(choice)) {
-            handleMst();
-        } else if ("9".equals(choice)) {
-            handleSort();
-        } else {
-            view.showUnknownChoice();
+        switch (choice) {
+            case Constants.MENU_LIST_BOOKS:
+                handleListBooks();
+                break;
+            case Constants.MENU_SEARCH_BOOK:
+                handleSearchBook();
+                break;
+            case Constants.MENU_DELETE_BOOK:
+                handleDeleteBook();
+                break;
+            case Constants.MENU_BST_STATS:
+                handleBstStats();
+                break;
+            case Constants.MENU_SHOW_GRAPH:
+                handleShowGraph();
+                break;
+            case Constants.MENU_BFS:
+                handleBfs();
+                break;
+            case Constants.MENU_SHORTEST_ROUTE:
+                handleShortestRoute();
+                break;
+            case Constants.MENU_MST:
+                handleMst();
+                break;
+            case Constants.MENU_SORT_BOOKS:
+                handleSort();
+                break;
+            default:
+                view.showUnknownChoice();
+                break;
         }
     }
 
@@ -126,12 +136,22 @@ public final class LibraryController {
     // ── Helpers ───────────────────────────────────────────────────────────────
 
     private static Sorts.Algorithm parseAlgorithm(String value) {
-        // Accept numeric shortcut (1-4) or full name
-        if ("1".equals(value) || "quick".equalsIgnoreCase(value))     return Sorts.Algorithm.QUICK;
-        if ("2".equals(value) || "merge".equalsIgnoreCase(value))     return Sorts.Algorithm.MERGE;
-        if ("3".equals(value) || "heap".equalsIgnoreCase(value))      return Sorts.Algorithm.HEAP;
-        if ("4".equals(value) || "insertion".equalsIgnoreCase(value)) return Sorts.Algorithm.INSERTION;
+        if (Constants.SORT_CHOICE_QUICK.equals(value)
+                || Constants.SORT_NAME_QUICK.equalsIgnoreCase(value)) {
+            return Sorts.Algorithm.QUICK;
+        }
+        if (Constants.SORT_CHOICE_MERGE.equals(value)
+                || Constants.SORT_NAME_MERGE.equalsIgnoreCase(value)) {
+            return Sorts.Algorithm.MERGE;
+        }
+        if (Constants.SORT_CHOICE_HEAP.equals(value)
+                || Constants.SORT_NAME_HEAP.equalsIgnoreCase(value)) {
+            return Sorts.Algorithm.HEAP;
+        }
+        if (Constants.SORT_CHOICE_INSERTION.equals(value)
+                || Constants.SORT_NAME_INSERTION.equalsIgnoreCase(value)) {
+            return Sorts.Algorithm.INSERTION;
+        }
         throw new IllegalArgumentException("choose 1 (quick), 2 (merge), 3 (heap), or 4 (insertion)");
     }
 }
-

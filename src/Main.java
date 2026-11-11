@@ -1,5 +1,6 @@
 import controller.LibraryController;
 import model.LibraryData;
+import util.Constants;
 import view.ConsoleView;
 
 import java.io.IOException;
@@ -13,7 +14,7 @@ public final class Main {
     private Main() { }
 
     public static void main(String[] args) {
-        String dataDirectory = args.length == 0 ? "data/valid" : args[0];
+        String dataDirectory = args.length == 0 ? Constants.DEFAULT_DATA_DIR : args[0];
         ConsoleView view = new ConsoleView();
 
         LibraryData data = new LibraryData();

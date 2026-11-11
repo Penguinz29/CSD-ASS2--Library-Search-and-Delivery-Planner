@@ -1,5 +1,7 @@
 package model;
 
+import util.Constants;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -51,12 +53,12 @@ public final class LibraryData {
     }
 
     public static State load(Path directory) throws IOException {
-        Path booksPath = directory.resolve("books.csv");
-        Path branchesPath = directory.resolve("branches.csv");
-        Path routesPath = directory.resolve("routes.csv");
-        List<CsvRow> bookRows = readRows(booksPath, "bookId,title,category,copies");
-        List<CsvRow> branchRows = readRows(branchesPath, "branchId,name");
-        List<CsvRow> routeRows = readRows(routesPath, "from,to,distance");
+        Path booksPath = directory.resolve(Constants.BOOKS_FILE);
+        Path branchesPath = directory.resolve(Constants.BRANCHES_FILE);
+        Path routesPath = directory.resolve(Constants.ROUTES_FILE);
+        List<CsvRow> bookRows = readRows(booksPath, Constants.BOOKS_HEADER);
+        List<CsvRow> branchRows = readRows(branchesPath, Constants.BRANCHES_HEADER);
+        List<CsvRow> routeRows = readRows(routesPath, Constants.ROUTES_HEADER);
 
         List<Book> books = new ArrayList<Book>();
         Set<String> bookIds = new HashSet<String>();
@@ -73,7 +75,9 @@ public final class LibraryData {
             if (copies < 0) fail(booksPath, line, "copies must be >= 0");
             books.add(new Book(id, title, category, copies));
         }
-        if (books.size() < 20) fail(booksPath, 1, "at least 20 books are required");
+        if (books.size() < Constants.MIN_BOOKS_COUNT) {
+            fail(booksPath, 1, "at least " + Constants.MIN_BOOKS_COUNT + " books are required");
+        }
 
         List<String> branchIds = new ArrayList<String>();
         Set<String> branchSet = new LinkedHashSet<String>();
@@ -87,7 +91,9 @@ public final class LibraryData {
             if (!branchSet.add(id)) fail(branchesPath, line, "duplicate branchId '" + id + "'");
             branchIds.add(id);
         }
-        if (branchIds.size() < 6) fail(branchesPath, 1, "at least six branches are required");
+        if (branchIds.size() < Constants.MIN_BRANCHES_COUNT) {
+            fail(branchesPath, 1, "at least six branches are required");
+        }
 
         List<BranchGraph.Edge> edges = new ArrayList<BranchGraph.Edge>();
         Set<String> pairs = new HashSet<String>();

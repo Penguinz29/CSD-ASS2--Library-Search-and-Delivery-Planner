@@ -3,6 +3,7 @@ import model.BookTree;
 import model.BranchGraph;
 import model.LibraryData;
 import model.Sorts;
+import util.Constants;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -20,7 +21,7 @@ public final class TestRunner {
         testTree();
         testGraph();
         testSorters();
-        testInvalidLoadPreservesState(args.length == 0 ? "data" : args[0]);
+        testInvalidLoadPreservesState(args.length == 0 ? Constants.DEFAULT_TEST_DATA_DIR : args[0]);
         System.out.println("ALL TESTS PASSED: " + passed + " checks");
     }
 
